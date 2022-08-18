@@ -126,7 +126,6 @@ int	printf_pointer(int p)
 int	ft_printf(const char *format, ...)
 {
 	int a;
-	// int u_int;
 	va_list args;
 	va_start(args, format);
 
@@ -137,27 +136,15 @@ int	ft_printf(const char *format, ...)
 		{
 			format++;
 			if (*format == 'd')
-			{
-				int d = va_arg(args, int);
-				a += ft_putnbr(d);
-			}
+				a += ft_putnbr(va_arg(args, int));
 			else if (*format == 's')
-			{
-				char *s = va_arg(args, char*);
-				a += ft_putstr(s);
-			}
+				a += ft_putstr(va_arg(args, char*));
 			else if (*format == 'c')
-			{
-				char c = va_arg(args, int);
-				a += ft_putchar(c);
-			}
+				a += ft_putchar(va_arg(args, int));
 			else if (*format == '%')
 				a += ft_putchar(37);
 			else if (*format == 'i')
-			{
-				int i = va_arg(args, int);
-				a += ft_putnbr(i);
-			}
+				a += ft_putnbr(va_arg(args, int));
 			else if (*format == 'u')
 			{
 				int u = va_arg(args, unsigned int);
@@ -167,20 +154,11 @@ int	ft_printf(const char *format, ...)
 					a += ft_putnbr(u);
 			}
 			else if (*format == 'x')
-			{
-				int xl = va_arg(args, int);
-				a += hexdecimal_l(xl);
-			}
+				a += hexdecimal_l(va_arg(args, unsigned int));
 			else if (*format == 'X')
-			{
-				int xu = va_arg(args, int);
-				a += hexdecimal_u(xu);
-			}
+				a += hexdecimal_u(va_arg(args, unsigned int));
 			else if (*format == 'p')
-			{
-				int p = va_arg(args, int);
-				a += printf_pointer(p);
-			}
+				a += printf_pointer(va_arg(args, unsigned long long));
 			format++;
 		}
 		a += write(1, format, 1);
@@ -195,11 +173,7 @@ int main(void)
 	int	return_of_my_printf;
 	int	return_of_printf;
 	int	a = 1223232;
-	int	*b = &a;
-	int *c;
 
-	// a = 1111;
-	// b = &a;
 
 	return_of_my_printf = ft_printf("0 try this %d && %s && %c && %% && %u && %x && %X && %p\n", -12, "hello world", 'c', -10, a, a, a);
     return_of_printf = printf("1 try this %d && %s && %c && %% && %u && %x && %X && %p\n", -12, "hello world", 'c', -10, a, a, a);
