@@ -1,0 +1,10 @@
+make.exe --dry-run --keep-going --print-directory
+'\\wsl.localhost\Ubuntu-18.04\home\tzi-qi\ft_printf'
+CMD.EXE was started with the above path as the current directory.
+UNC paths are not supported.  Defaulting to Windows directory.
+
+make: Entering directory '/c/Windows'
+make: Leaving directory '/c/Windows'
+ 
+make: *** No targets specified and no makefile found.  Stop.
+
