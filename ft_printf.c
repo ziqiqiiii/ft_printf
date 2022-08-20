@@ -1,15 +1,23 @@
-#include <unistd.h>
-#include <stdarg.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tzi-qi <tzi-qi@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/20 14:15:04 by tzi-qi            #+#    #+#             */
+/*   Updated: 2022/08/20 16:43:56 by tzi-qi           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include <stdio.h>
 #include "ft_printf.h"
 
-int	hexdecimal_l(int n)
+int	hexdecimal_l(unsigned long long n)
 {
 	int	i;
 
 	i = 0;
-	if (n > 16)
+	if (n >= 16)
 	{
 		i += hexdecimal_l(n / 16);
 		i += hexdecimal_l(n % 16);
@@ -24,12 +32,12 @@ int	hexdecimal_l(int n)
 	return (i);
 }
 
-int	hexdecimal_u(int n)
+int	hexdecimal_u(unsigned long long n)
 {
 	int	i;
 
 	i = 0;
-	if (n > 16)
+	if (n >= 16)
 	{
 		i += hexdecimal_u(n / 16);
 		i += hexdecimal_u(n % 16);
@@ -44,7 +52,7 @@ int	hexdecimal_u(int n)
 	return (i);
 }
 
-int	printf_pointer(int p)
+int	printf_pointer(unsigned long long p)
 {
 	int	i;
 
@@ -59,7 +67,7 @@ int	printf_specifiers(va_list args, char format, int a)
 	if (format == 'd')
 		a += ft_putnbr(va_arg(args, int));
 	else if (format == 's')
-		a += ft_putstr(va_arg(args, char*));
+		a += ft_putstr(va_arg(args, char *));
 	else if (format == 'c')
 		a += ft_putchar(va_arg(args, int));
 	else if (format == '%')
@@ -79,38 +87,22 @@ int	printf_specifiers(va_list args, char format, int a)
 
 int	ft_printf(const char *format, ...)
 {
-	int a;
-	va_list args;
-	va_start(args, format);
+	int		a;
+	va_list	args;
 
+	va_start(args, format);
 	a = 0;
-	while(*format != '\0')
+	while (*format != '\0')
 	{
 		if (*format == '%')
 		{
 			format++;
 			a = printf_specifiers(args, *format, a);
-			format++;
 		}
-		a += write(1, format, 1);
+		else
+			a += write(1, format, 1);
 		format++;
 	}
 	va_end(args);
-	return(a);
-}
-
-int main(void)
-{
-	int	return_of_my_printf;
-	int	return_of_printf;
-	int	a = 1223232;
-
-
-	return_of_my_printf = ft_printf("0 try this %d && %s && %c && %% && %u && %x && %X && %p\n", -12, "hello world", 'c', -100, a, a, a);
-    return_of_printf = printf("1 try this %d && %s && %c && %% && %u && %x && %X && %p\n", -12, "hello world", 'c', -100, a, a, a);
-	printf("the return value of my printf = [%d]\n", return_of_my_printf);
-	printf("the return value of printf = [%d]\n", return_of_printf);
-	printf("try %%p = [%p]\n", a);
-	printf("try %%X = [%X]\n", a);
-	printf("try %%x = [%x]\n", a);
+	return (a);
 }
