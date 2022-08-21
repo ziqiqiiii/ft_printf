@@ -20,3 +20,5 @@ In this project, I am trying to code a ft_printf function that can deal with %c 
 
 In my ft_printf_utils.c file is all the functions that kinda similar in libft but a modified version. Exp = ft_putnbr ft_putchar ft_putstr.
 While the ft_printf.c file contain functions that I code in this project.
+
+The target "test" in Makefile is used to compile all the source file and run executable file.
